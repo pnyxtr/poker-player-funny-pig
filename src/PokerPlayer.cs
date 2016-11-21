@@ -4,12 +4,23 @@ namespace Nancy.Simple
 {
 	public static class PokerPlayer
 	{
-		public static readonly string VERSION = "Default C# folding player";
+		public static readonly string VERSION = "All in on pairs";
 
 		public static int BetRequest(JObject gameState)
 		{
-			//TODO: Use this method to return the value You want to bet
-			return 10000;
+		    var players = gameState.SelectToken("players");
+		    foreach (var player in players)
+		    {
+		        var holeCards = player.SelectToken("hole_cards");
+		        if (holeCards != null)
+		        {
+		            var c1 = holeCards.SelectToken("rank")[0].Value<int>();
+                    var c2 = holeCards.SelectToken("rank")[1].Value<int>();
+		            if (c1 == c2)
+		                return 10000;
+		        }
+            }
+		    return 0;
 		}
 
 		public static void ShowDown(JObject gameState)
