@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Newtonsoft.Json.Linq;
 
 namespace Nancy.Simple
@@ -47,6 +48,7 @@ namespace Nancy.Simple
             var c1 = holeCards[0].First();
             var c2 = c1.Next;
 
+            Thread.Sleep(100);
             if (c1.Value<string>("rank") == c2.Value<string>("rank"))
             {
                 return 10000;
